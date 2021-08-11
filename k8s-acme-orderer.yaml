@@ -32,14 +32,14 @@ spec:
           # Level of logging
           - name: FABRIC_LOGGING_SPEC
             value: DEBUG
-          - name: ORDERER_GENERAL_TLS_ENABLED
-            value: "true"
-          - name: ORDERER_GENERAL_TLS_PRIVATEKEY
-            value: /var/hyperledger/tls/server.key
-          - name: ORDERER_GENERAL_TLS_CERTIFICATE
-            value: /var/hyperledger/tls/server.crt
-          - name: ORDERER_GENERAL_TLS_CERTIFICATE
-            value: /var/hyperledger/tls/server.crt
+          #- name: ORDERER_GENERAL_TLS_ENABLED
+          #  value: "true"
+          #- name: ORDERER_GENERAL_TLS_PRIVATEKEY
+          #  value: /var/hyperledger/tls/server.key
+          #- name: ORDERER_GENERAL_TLS_CERTIFICATE
+          #  value: /var/hyperledger/tls/server.crt
+          #- name: ORDERER_GENERAL_TLS_CERTIFICATE
+          #  value: /var/hyperledger/tls/server.crt
         volumeMounts:
         # This is pointing to the PVC
         - name: orderer-ledger
