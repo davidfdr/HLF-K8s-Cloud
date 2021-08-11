@@ -66,7 +66,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: peer1.acme.com-clusterip
+  name: peer1-acme-com-clusterip
 
 spec:
   # This defines which pods are going to be represented by this Service
@@ -76,9 +76,9 @@ spec:
     app: peer1.acme.com
 
   ports:
-    - name: peer1.acme.com-clusterip
+    - name: peer1-acme-com-clusterip
       port: 30751
-    - name: peer1.acme.com-cc-clusterip
+    - name: peer1-acme-com-cc-clusterip
       port: 30752
 
   type: ClusterIP
@@ -91,7 +91,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: peer1.acme.com-nodeport
+  name: peer1-acme-com-nodeport
 
 spec:
   # This defines which pods are going to be represented by this Service
@@ -101,10 +101,10 @@ spec:
     app: peer1.acme.com
 
   ports:
-    - name: peer1.acme.com-nodeport-751
+    - name: peer1-acme-com-nodeport-751
       port: 30751
       nodePort: 30751
-    - name: peer1.acme.com-nodeport-752
+    - name: peer1-acme-com-nodeport-752
       port: 30752
       nodePort: 30752
 

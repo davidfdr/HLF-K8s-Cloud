@@ -6,7 +6,7 @@ metadata:
   labels:
     app: orderer.acme.com
 spec:
-  serviceName: orderer
+  serviceName: orderer.acme.com
   # Single instance of the Orderer Pod is needed
   replicas: 1
   selector:
@@ -60,7 +60,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: orderer.acme.com-clusterip
+  name: orderer-acme-com-clusterip
 
 spec:
   # This defines which pods are going to be represented by this Service
@@ -70,7 +70,7 @@ spec:
     app: orderer.acme.com
 
   ports:
-    - name: orderer.acme.com-clusterip
+    - name: orderer-acme-com-clusterip
       port: 30750
 
   type: ClusterIP
@@ -83,7 +83,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: orderer.acme.com-nodeport
+  name: orderer-acme-com-nodeport
 
 spec:
   # This defines which pods are going to be represented by this Service
@@ -93,7 +93,7 @@ spec:
     app: orderer.acme.com
 
   ports:
-    - name: orderer.acme.com-nodeport
+    - name: orderer-acme-com-nodeport
       port: 30750
       nodePort: 30750
 
