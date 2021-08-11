@@ -21,7 +21,7 @@ spec:
       - name: acme-orderer
 
         # Image used
-        image: acloudfan/k8s-hlf-acme-orderer:1.0
+        image: acloudfan/k8s-hlf-acme-orderer:2.0
 
         # Uncomment the following during development/testing of the image
         # imagePullPolicy: Always
