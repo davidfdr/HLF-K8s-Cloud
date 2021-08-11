@@ -39,7 +39,7 @@ spec:
           - name: ORDERER_GENERAL_TLS_CERTIFICATE
             value: /var/hyperledger/orderer.acme.com/tls/server.crt
           - name: ORDERER_GENERAL_TLS_ROOTCAS
-            value: /var/hyperledger/orderer.acme.com/tls/ca
+            value: /var/hyperledger/orderer.acme.com/tls/ca.crt
         volumeMounts:
         # This is pointing to the PVC
         - name: orderer-ledger
