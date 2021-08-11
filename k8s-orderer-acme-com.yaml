@@ -6,7 +6,7 @@ metadata:
   labels:
     app: orderer.acme.com
 spec:
-  serviceName: orderer.acme.com
+  serviceName: orderer
   # Single instance of the Orderer Pod is needed
   replicas: 1
   selector:
