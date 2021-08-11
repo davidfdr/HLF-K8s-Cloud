@@ -1,0 +1,111 @@
+# YAML for launching the orderer
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: peer1.acme.com
+  labels:
+    app: peer1.acme.com
+spec:
+  serviceName: peer1.acme.com
+  replicas: 1
+  selector:
+    matchLabels:
+      app: peer1.acme.com
+  template:
+    metadata:
+      labels:
+        app: peer1.acme.com
+    spec:
+      containers:
+      - name: peer1.acme.com
+        # Image used
+        image: acloudfan/k8s-hlf-acme-peer:2.0
+        # Uncomment the following during development/testing of the image
+        # imagePullPolicy: Always
+        env:
+          - name: FABRIC_CFG_PATH
+            value: /var/hyperledger/config
+          - name: FABRIC_LOGGING_SPEC
+            value: DEBUG
+          - name: ORDERER_ADDRESS
+            value: acme-orderer-clusterip:30750
+          - name: ORG_CONTEXT
+            value: acme
+          - name: CORE_PEER_ADDRESS
+          # value: acme-peer-clusterip:30751
+            value: peer1.acme.com:30751
+          - name: CORE_PEER_TLS_ENABLED
+            value: "true"
+          - name: CORE_PEER_TLS_CERT_FILE
+            value: /var/hyperledger/peer1.acme.com/tls/server.crt
+          - name: CORE_PEER_TLS_KEY_FILE
+            value: /var/hyperledger/peer1.acme.com/tls/server.key
+          - name: CORE_PEER_TLS_ROOTCERT_FILE
+            value: /var/hyperledger/peer1.acme.com/tls/ca.crt            
+        volumeMounts:
+        - name: acme-peer-ledger
+          mountPath: /var/ledger
+        - name: dockersock
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock
+  volumeClaimTemplates:
+  - metadata: 
+      name: acme-peer-ledger
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: general
+      resources:
+        requests:
+          storage: 1Gi
+
+---
+# Expose the port 7051 as ClusterIP
+apiVersion: v1
+kind: Service
+metadata:
+  name: peer1.acme.com-clusterip
+
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: peer1.acme.com
+
+  ports:
+    - name: peer1.acme.com-clusterip
+      port: 30751
+    - name: peer1.acme.com-cc-clusterip
+      port: 30752
+
+  type: ClusterIP
+
+---
+# Expose the port 30751 as node port -  NEEDED if you
+# are interested in connecting to the Pods from the Host
+# machine - keep in mind you would need the IP for the node
+# port service
+apiVersion: v1
+kind: Service
+metadata:
+  name: peer1.acme.com-nodeport
+
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: peer1.acme.com
+
+  ports:
+    - name: peer1.acme.com-nodeport-751
+      port: 30751
+      nodePort: 30751
+    - name: peer1.acme.com-nodeport-752
+      port: 30752
+      nodePort: 30752
+
+  type: NodePort
