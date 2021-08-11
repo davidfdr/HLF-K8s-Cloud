@@ -34,6 +34,14 @@ spec:
           - name: CORE_PEER_ADDRESS
           # value: budget-peer-clusterip:30851
             value: 0.0.0.0:30851
+          - name: CORE_PEER_TLS_ENABLED
+            value: true
+          - name: CORE_PEER_TLS_CERT_FILE
+            value: /var/hyperledger/tls/server.crt
+          - name: CORE_PEER_TLS_KEY_FILE
+            value: /var/hyperledger/tls/server.key
+          - name: CORE_PEER_TLS_ROOTCERT_FILE
+            value: /var/hyperledger/tls/ca.crt
         volumeMounts:
         - name: budget-peer-ledger
           mountPath: /var/ledger
